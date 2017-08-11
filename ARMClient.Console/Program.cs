@@ -7,7 +7,7 @@ using System.Security.Cryptography.X509Certificates;
 using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
-using System.Windows.Forms;
+//using System.Windows.Forms;
 using ARMClient.Authentication;
 using ARMClient.Authentication.AADAuthentication;
 using ARMClient.Authentication.Contracts;
@@ -22,7 +22,13 @@ namespace ARMClient
         [STAThread]
         static int Main(string[] args)
         {
+#if NET462
             Utils.SetTraceListener(new ConsoleTraceListener());
+#endif
+
+            //args = new[] { "GET /subscriptions?api-version=2014-04-01" };
+            //args = new[] { "login" };
+
             try
             {
                 var persistentAuthHelper = new PersistentAuthHelper();
@@ -85,7 +91,9 @@ namespace ARMClient
 
                         TokenCacheInfo cacheInfo = persistentAuthHelper.GetToken(tenantId).Result;
                         var bearer = cacheInfo.CreateAuthorizationHeader();
-                        Clipboard.SetText(cacheInfo.AccessToken);
+
+                        //jnno
+                        //Clipboard.SetText(cacheInfo.AccessToken);
                         DumpClaims(cacheInfo.AccessToken);
                         Console.WriteLine();
                         Console.WriteLine("Token copied to clipboard successfully.");

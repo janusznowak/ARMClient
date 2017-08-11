@@ -262,10 +262,15 @@ namespace ARMClient.Authentication.AADAuthentication
                 validateAuthority: true,
                 tokenCache: tokenCache);
 
-            AuthenticationResult result = await context.AcquireTokenByRefreshTokenAsync(
-                    refreshToken: cacheInfo.RefreshToken,
+            AuthenticationResult result = await context.AcquireTokenSilentAsync(
+                    //refreshToken: cacheInfo.RefreshToken,
                     clientId: Constants.AADClientId,
                     resource: cacheInfo.Resource);
+
+            //AuthenticationResult result = await context.AcquireTokenByRefreshTokenAsync(
+            //        refreshToken: cacheInfo.RefreshToken,
+            //        clientId: Constants.AADClientId,
+            //        resource: cacheInfo.Resource);
 
             var ret = new TokenCacheInfo(cacheInfo.Resource, result);
             ret.TenantId = cacheInfo.TenantId;
@@ -287,7 +292,7 @@ namespace ARMClient.Authentication.AADAuthentication
                 return tcs.Task;
             }
 
-            var thread = new Thread(() =>
+            var thread = new Thread(async () =>
             {
                 try
                 {
@@ -301,20 +306,47 @@ namespace ARMClient.Authentication.AADAuthentication
                     AuthenticationResult result = null;
                     if (!string.IsNullOrEmpty(user))
                     {
-                        result = context.AcquireToken(
-                            resource: resource,
-                            clientId: Constants.AADClientId,
-                            redirectUri: new Uri(Constants.AADRedirectUri),
-                            promptBehavior: PromptBehavior.Never,
-                            userId: new UserIdentifier(user, UserIdentifierType.OptionalDisplayableId));
+
+
+                        //result = await context.AcquireTokenAsync(
+                        //    resource: resource,
+                        //    clientId: Constants.AADClientId,
+                        //    redirectUri: new Uri(Constants.AADRedirectUri),
+                        //    //promptBehavior: PromptBehavior.Never,
+                        //    userId: new UserIdentifier(user, UserIdentifierType.OptionalDisplayableId), parameters: new aaaa());
+
+
+#if NET462
+                        result = await context.AcquireTokenAsync(resource: resource, clientId: Constants.AADClientId, redirectUri: new Uri(Constants.AADRedirectUri), userId: new UserIdentifier(user, UserIdentifierType.OptionalDisplayableId), parameters: new PlatformParameters(PromptBehavior.Never));
+#endif
+
+#if NETCOREAPP2_0
+                        result = await context.AcquireTokenAsync(resource: resource, clientId: Constants.AADClientId, redirectUri: new Uri(Constants.AADRedirectUri), userId: new UserIdentifier(user, UserIdentifierType.OptionalDisplayableId), parameters: new PlatformParameters());
+#endif
                     }
                     else
                     {
-                        result = context.AcquireToken(
-                            resource: resource,
-                            clientId: Constants.AADClientId,
-                            redirectUri: new Uri(Constants.AADRedirectUri),
-                            promptBehavior: PromptBehavior.Always);
+
+
+#if NET462
+                        result = await context.AcquireTokenAsync(resource: resource, clientId: Constants.AADClientId, redirectUri: new Uri(Constants.AADRedirectUri), parameters: new PlatformParameters(PromptBehavior.Always));
+#endif
+
+#if NETCOREAPP2_0
+
+                        result = await context.AcquireTokenAsync(resource: resource, clientId: Constants.AADClientId, redirectUri: new Uri(Constants.AADRedirectUri), parameters: new PlatformParameters());
+#endif
+
+                        //result = await context.AcquireTokenAsync(resource:resource,clientId: Constants.AADClientId, redirectUri: new Uri(Constants.AADRedirectUri));
+                        //result = await context.AcquireTokenAsync(
+                        //    resource: resource,
+                        //    clientId: Constants.AADClientId,
+                        //    redirectUri: new Uri(Constants.AADRedirectUri)
+                        //    , parameters: new aaaa());
+
+
+
+                        //promptBehavior: PromptBehavior.Always);
                     }
 
                     var cacheInfo = new TokenCacheInfo(resource, result);
@@ -333,6 +365,10 @@ namespace ARMClient.Authentication.AADAuthentication
 
             return tcs.Task;
         }
+        class aaaa : IPlatformParameters
+        {
+        }
+
 
         protected TokenCacheInfo GetAuthorizationResultBySpn(CustomTokenCache tokenCache, string tenantId, string appId, string appKey, string resource)
         {
@@ -349,9 +385,9 @@ namespace ARMClient.Authentication.AADAuthentication
                 validateAuthority: true,
                 tokenCache: tokenCache);
             var credential = new ClientCredential(appId, appKey);
-            var result = context.AcquireToken(resource, credential);
+            var result = context.AcquireTokenAsync(resource, credential);
 
-            var cacheInfo = new TokenCacheInfo(tenantId, appId, appKey, resource, result);
+            var cacheInfo = new TokenCacheInfo(tenantId, appId, appKey, resource, result.Result);
             tokenCache.Add(cacheInfo);
             return cacheInfo;
         }
@@ -371,9 +407,10 @@ namespace ARMClient.Authentication.AADAuthentication
                 validateAuthority: true,
                 tokenCache: tokenCache);
             var credential = new ClientAssertionCertificate(appId, certificate);
-            var result = context.AcquireToken(resource, credential);
+            //var result = context.AcquireToken(resource, credential);
+            var result = context.AcquireTokenAsync(resource, credential);
 
-            var cacheInfo = new TokenCacheInfo(tenantId, appId, "_certificate_", resource, result);
+            var cacheInfo = new TokenCacheInfo(tenantId, appId, "_certificate_", resource, result.Result);
             tokenCache.Add(cacheInfo);
             return cacheInfo;
         }
@@ -392,10 +429,11 @@ namespace ARMClient.Authentication.AADAuthentication
                 authority: authority,
                 validateAuthority: true,
                 tokenCache: tokenCache);
-            var credential = new UserCredential(username, password);
-            var result = context.AcquireToken(resource, Constants.AADClientId, credential);
+            //var credential = new UserCredential(username, password);
+            var credential = new UserCredential(username);
+            var result = context.AcquireTokenAsync(resource, Constants.AADClientId, credential);
 
-            var cacheInfo = new TokenCacheInfo(resource, result);
+            var cacheInfo = new TokenCacheInfo(resource, result.Result);
             tokenCache.Add(cacheInfo);
             return cacheInfo;
         }

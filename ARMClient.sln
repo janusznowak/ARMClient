@@ -1,13 +1,13 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 14
-VisualStudioVersion = 14.0.25420.1
+# Visual Studio 15
+VisualStudioVersion = 15.0.26724.1
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ARMClient.Console", "ARMClient.Console\ARMClient.Console.csproj", "{48E9A98D-6E60-4D9A-8E43-353E45E2B73E}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ARMClient.Console", "ARMClient.Console\ARMClient.Console.csproj", "{86C74BE6-D4AD-4D51-A8AF-D055B6AA2C77}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ARMClient.Authentication", "ARMClient.Authentication\ARMClient.Authentication.csproj", "{2824485E-0EAD-4F72-B897-FFDAFF346528}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ARMClient.Authentication", "ARMClient.Authentication\ARMClient.Authentication.csproj", "{D2516CF8-7271-4156-ADD7-4FC2FF9026D2}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AADClient.Console", "AADClient.Console\AADClient.Console.csproj", "{7C204270-8911-4E04-B3FE-417381128D34}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AADClient.Console", "AADClient.Console\AADClient.Console.csproj", "{CACE3DCC-9C28-4239-9150-291D0610C74F}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -15,20 +15,23 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{48E9A98D-6E60-4D9A-8E43-353E45E2B73E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{48E9A98D-6E60-4D9A-8E43-353E45E2B73E}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{48E9A98D-6E60-4D9A-8E43-353E45E2B73E}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{48E9A98D-6E60-4D9A-8E43-353E45E2B73E}.Release|Any CPU.Build.0 = Release|Any CPU
-		{2824485E-0EAD-4F72-B897-FFDAFF346528}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{2824485E-0EAD-4F72-B897-FFDAFF346528}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{2824485E-0EAD-4F72-B897-FFDAFF346528}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{2824485E-0EAD-4F72-B897-FFDAFF346528}.Release|Any CPU.Build.0 = Release|Any CPU
-		{7C204270-8911-4E04-B3FE-417381128D34}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{7C204270-8911-4E04-B3FE-417381128D34}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{7C204270-8911-4E04-B3FE-417381128D34}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{7C204270-8911-4E04-B3FE-417381128D34}.Release|Any CPU.Build.0 = Release|Any CPU
+		{86C74BE6-D4AD-4D51-A8AF-D055B6AA2C77}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{86C74BE6-D4AD-4D51-A8AF-D055B6AA2C77}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{86C74BE6-D4AD-4D51-A8AF-D055B6AA2C77}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{86C74BE6-D4AD-4D51-A8AF-D055B6AA2C77}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D2516CF8-7271-4156-ADD7-4FC2FF9026D2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D2516CF8-7271-4156-ADD7-4FC2FF9026D2}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D2516CF8-7271-4156-ADD7-4FC2FF9026D2}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D2516CF8-7271-4156-ADD7-4FC2FF9026D2}.Release|Any CPU.Build.0 = Release|Any CPU
+		{CACE3DCC-9C28-4239-9150-291D0610C74F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{CACE3DCC-9C28-4239-9150-291D0610C74F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{CACE3DCC-9C28-4239-9150-291D0610C74F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{CACE3DCC-9C28-4239-9150-291D0610C74F}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {EEA167E7-A4EB-4361-8F4D-3D9E8B59DCA4}
 	EndGlobalSection
 EndGlobal
